@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MyData.Db.Models;
+using MyData.Db.Repository;
 
 namespace MyData.AccountService.BL.Interfaces
 {
     public interface IAccountManagement
     {
-        //  IRepository<Customer> Customers { get; }
-        // IRepository<Order> Orders { get; }
+        IRepository<StaffInfo> Staffinfos { get; }
+        IRepository<AccountType> AccountTypes { get; }
+        IRepository<UserAccount> UserAccounts { get; }
+
         void Commit();
     }
 }

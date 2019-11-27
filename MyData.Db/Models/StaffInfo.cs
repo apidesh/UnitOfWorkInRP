@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyData.Db.Models
 {
+    [Table("StaffInfo")]
     public class StaffInfo
     {
         [Column("ID")]
@@ -11,12 +12,24 @@ namespace MyData.Db.Models
         public Guid ID { get; set; }
 
         [Required]
-        [Column("Username")]
-        public string Username { get; set; }
+        [Column("EmployeeID")]
+        public string EmployeeID { get; set; }
 
         [Required]
-        [Column("Password")]
-        public string Password { get; set; }
+        [Column("DivisionName")]
+        public string DivisionName { get; set; }
+
+        [Required]
+        [Column("FirstName")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Column("LastName")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Column("Email")]
+        public string Email { get; set; }
 
         [Required]
         [Column("IsActive")]

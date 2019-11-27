@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using MyData.AccountService.BL;
+using MyData.AccountService.BL.Interfaces;
+using MyData.AccountService.Services;
+using MyData.AccountService.Services.Interfaces;
 using MyData.Db.Contexts;
 
 namespace MyData.AccountService
@@ -28,6 +25,7 @@ namespace MyData.AccountService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MyDataDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            InjectAllDependencies(services);
             services.AddMvc();
             services.AddControllers();
         }
@@ -52,6 +50,13 @@ namespace MyData.AccountService
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void InjectAllDependencies(IServiceCollection services)
+        {
+            services.AddScoped<IAccountManagement, AccountManagement>();
+            services.AddScoped<IAccountManagementService, AccountManagementService>();
+            // services.AddScoped<IAccountManagement, AccountManagement>();
         }
     }
 }

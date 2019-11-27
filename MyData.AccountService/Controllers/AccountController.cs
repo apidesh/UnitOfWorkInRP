@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyData.AccountService.Model;
+using MyData.AccountService.Services.Interfaces;
 
 namespace MyData.AccountService.Controllers
 {
@@ -11,11 +8,25 @@ namespace MyData.AccountService.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly IAccountManagementService accountManagementService;
+
+        public AccountController(IAccountManagementService accountManagementService)
+        {
+            this.accountManagementService = accountManagementService;
+        }
+
         [HttpPost]
         [Route("staff/add")]
-        public bool AddStaffAccount(object model)
+        public bool AddStaffAccount(AccountInfoDTO model)
         {
-            return true;
+            return accountManagementService.CreateAccount(model);
+        }
+
+        [HttpPost]
+        [Route("type/add")]
+        public bool AddAccountType(AccountTypeDTO model)
+        {
+            return accountManagementService.CreateAccountType(model);
         }
     }
 }

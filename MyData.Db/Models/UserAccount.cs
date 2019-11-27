@@ -12,20 +12,20 @@ namespace MyData.Db.Models
         public Guid ID { get; set; }
 
         [Required]
-        [Column("EmployeeID")]
-        public string EmployeeID { get; set; }
+        [Column("AccountTypeFK")]
+        public Guid AccountTypeFK { get; set; }
 
         [Required]
-        [Column("DivisionName")]
-        public string DivisionName { get; set; }
+        [Column("StaffInfoFK")]
+        public Guid StaffInfoFK { get; set; }
 
         [Required]
-        [Column("FirstName")]
-        public string FirstName { get; set; }
+        [Column("Username")]
+        public string Username { get; set; }
 
         [Required]
-        [Column("Email")]
-        public string Email { get; set; }
+        [Column("Password")]
+        public string Password { get; set; }
 
         [Required]
         [Column("IsActive")]

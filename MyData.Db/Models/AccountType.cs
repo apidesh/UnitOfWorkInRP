@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyData.Db.Models
 {
+    [Table("AccountType")]
     public class AccountType
     {
         [Column("ID")]

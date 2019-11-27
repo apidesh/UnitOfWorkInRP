@@ -1,19 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MyData.AccountService.BL.Interfaces;
+using MyData.Db.Contexts;
+using MyData.Db.Models;
+using MyData.Db.Repository;
 
 namespace MyData.AccountService.BL
 {
-    public class AccountManagement
+    public class AccountManagement : IAccountManagement
     {
-        public AccountManagement()
+        private readonly MyDataDbContext dbContext;
+        private BaseRepository<UserAccount> useraccounts;
+        private BaseRepository<StaffInfo> staffinfos;
+        private BaseRepository<AccountType> accounttypes;
+
+        public AccountManagement(MyDataDbContext dbContext)
         {
+            this.dbContext = dbContext;
         }
 
-        public bool CreateAccount()
+        public IRepository<AccountType> AccountTypes
         {
-            return true;
+            get
+            {
+                return accounttypes ?? (accounttypes = new BaseRepository<AccountType>(dbContext));
+            }
+        }
+
+        public IRepository<UserAccount> UserAccounts
+        {
+            get
+            {
+                return useraccounts ?? (useraccounts = new BaseRepository<UserAccount>(dbContext));
+            }
+        }
+
+        public IRepository<StaffInfo> Staffinfos
+        {
+            get
+            {
+                return staffinfos ?? (staffinfos = new BaseRepository<StaffInfo>(dbContext));
+            }
+        }
+
+        public void Commit()
+        {
+            dbContext.SaveChanges();
         }
     }
 }
