@@ -16,22 +16,22 @@ namespace MyData.AccountService.Services
             this.accountManagement = accountManagement;
         }
 
-        public bool CreateAccount(AccountInfoDTO model)
+        public bool CreateUserAccount(AccountInfoDTO model)
         {
             try
             {
                 //Get the reference data from existing
                 var accountType = accountManagement.AccountTypes.Get(item => item.AccountTypeCode == model.AccountTypeCode)
-                                                                .FirstOrDefault();
+                                                                    .FirstOrDefault();
 
                 //Staff Info data
                 var staffInfoId = Guid.NewGuid();
                 var staffInfo = new StaffInfo
                 {
                     ID = staffInfoId,
-                    DivisionName = "IT",
+                    DivisionName = model.DivisionName,
                     Email = model.Email,
-                    EmployeeID = model.EmployeeId,
+                    EmployeeID = model.EmployeeID,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     ModifyBy = "System",
@@ -84,6 +84,38 @@ namespace MyData.AccountService.Services
                 };
 
                 accountManagement.AccountTypes.Insert(accountType);
+
+                //Commit all data into database at same transaction
+                accountManagement.Commit();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                var error = ex.Message;
+                // Log the error
+                return false;
+            }
+        }
+
+        public bool CreateStaffInfo(StaffInfoDTO model)
+        {
+            try
+            {
+                var staffInfo = new StaffInfo
+                {
+                    ID = Guid.NewGuid(),
+                    EmployeeID = model.EmployeeID,
+                    DivisionName = model.DivisionName,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    IsActive = true,
+                    ModifyBy = "System",
+                    ModifyDate = DateTime.Now
+                };
+
+                accountManagement.Staffinfos.Insert(staffInfo);
 
                 //Commit all data into database at same transaction
                 accountManagement.Commit();

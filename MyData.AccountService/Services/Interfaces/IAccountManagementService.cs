@@ -4,7 +4,9 @@ namespace MyData.AccountService.Services.Interfaces
 {
     public interface IAccountManagementService
     {
-        bool CreateAccount(AccountInfoDTO model);
+        bool CreateStaffInfo(StaffInfoDTO model);
+
+        bool CreateUserAccount(AccountInfoDTO model);
 
         bool CreateAccountType(AccountTypeDTO model);
     }

@@ -16,10 +16,17 @@ namespace MyData.AccountService.Controllers
         }
 
         [HttpPost]
-        [Route("staff/add")]
-        public bool AddStaffAccount(AccountInfoDTO model)
+        [Route("add")]
+        public bool AddUserAccount(AccountInfoDTO model)
         {
-            return accountManagementService.CreateAccount(model);
+            return accountManagementService.CreateUserAccount(model);
+        }
+
+        [HttpPost]
+        [Route("staff/add")]
+        public bool AddStaffAccount(StaffInfoDTO model)
+        {
+            return accountManagementService.CreateStaffInfo(model);
         }
 
         [HttpPost]
